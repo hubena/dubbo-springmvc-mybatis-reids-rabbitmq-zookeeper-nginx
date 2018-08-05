@@ -7,13 +7,178 @@
   <version>0.0.1-SNAPSHOT</version>
   <name>dubbo-springmvc-mybatis-reids-rabbitmq-zookeeper-nginx Maven Webapp</name>
   <url>http://maven.apache.org</url>
+  <properties>
+		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+		<org.springframework-version>5.0.3.RELEASE</org.springframework-version>
+		<mybatis.version>3.4.5</mybatis.version>
+		<mybatis.spring.version>1.3.1</mybatis.spring.version>
+		<mysql-connector-java.version>5.1.40</mysql-connector-java.version>
+		<mybatis-generator.version>1.3.2</mybatis-generator.version>
+		<junit.version>4.12</junit.version>
+		<java-version>1.8</java-version>
+		<servlet-api.version>2.5</servlet-api.version>
+		<commons-dbcp.vesion>1.3</commons-dbcp.vesion>
+		<commons-logging.version>1.2</commons-logging.version>
+		<mysql-connector-java.version>5.1.45</mysql-connector-java.version>
+		<cglib.version>3.2.6</cglib.version>
+		<spring-data-redis.version>2.0.3.RELEASE</spring-data-redis.version>
+		<spring-rabbit.version>2.0.2.RELEASE</spring-rabbit.version>
+		<logback-classic.version>1.2.3</logback-classic.version>
+		<java.home>F:\ProgramTools\Java\jdk1.8.0_121\bin</java.home>
+  </properties>
   <dependencies>
-    <dependency>
-      <groupId>junit</groupId>
-      <artifactId>junit</artifactId>
-      <version>3.8.1</version>
-      <scope>test</scope>
-    </dependency>
+  		<!-- junit测试包 -->
+  		<dependency>
+			<groupId>junit</groupId>
+			<artifactId>junit</artifactId>
+			<version>${junit.version}</version>
+			<scope>test</scope>
+		</dependency>
+		<!-- spring测试包 -->
+		<dependency>
+		    <groupId>org.springframework</groupId>
+		    <artifactId>spring-test</artifactId>
+		    <version>${org.springframework-version}</version>
+		    <scope>test</scope>
+		</dependency>
+		<!-- servlet-api,范围为provided -->
+		<dependency>
+			<groupId>javax.servlet</groupId>
+			<artifactId>servlet-api</artifactId>
+			<version>${servlet-api.version}</version>
+			<scope>provided</scope>
+		</dependency>
+		
+		<!-- 因为context容器依赖其他几个包，所以只要配置这一个就可以了 -->
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-context</artifactId>
+			<version>${org.springframework-version}</version>
+		</dependency>
+		
+		<!-- springmvc包，它会依赖导入Spring-web包，所以不需要再导入了 -->
+		<dependency>
+		    <groupId>org.springframework</groupId>
+		    <artifactId>spring-webmvc</artifactId>
+		    <version>${org.springframework-version}</version>
+		</dependency>
+		
+		<!-- 使用jstl标签需要导入的两个包 -->
+
+		<dependency>
+			<groupId>javax.servlet</groupId>
+			<artifactId>jstl</artifactId>
+			<version>1.2</version>
+		</dependency>
+		<dependency>  
+			<groupId>org.glassfish.web</groupId>
+			<artifactId>jstl-impl</artifactId>
+			<version>1.2</version>
+			<exclusions>
+			<!--  			
+				<exclusion>
+                    <groupId>javax.servlet</groupId>
+                    <artifactId>servlet-api</artifactId>
+                </exclusion> 
+            -->
+			<!--            
+				<exclusion>
+                    <groupId>javax.servlet.jsp</groupId>
+					<artifactId>jsp-api</artifactId>
+                </exclusion> 
+            -->
+            </exclusions>
+		</dependency>
+		
+		<!-- mybatis依赖包-->  
+        <dependency>  
+            <groupId>org.mybatis</groupId>  
+            <artifactId>mybatis</artifactId>  
+            <version>${mybatis.version}</version>  
+        </dependency>
+        <dependency>  
+            <groupId>org.mybatis</groupId>  
+            <artifactId>mybatis-spring</artifactId>  
+            <version>${mybatis.spring.version}</version>
+        </dependency>
+        
+        <!-- 导入数据源包 -->
+        <dependency>  
+			<groupId>commons-dbcp</groupId>
+			<artifactId>commons-dbcp</artifactId>
+			<version>${commons-dbcp.vesion}</version>
+        </dependency>
+        
+        <!-- Jakarta  Commons-logging(JCL)日志门面依赖 -->
+        <dependency>
+			<groupId>commons-logging</groupId>
+			<artifactId>commons-logging</artifactId>
+			<version>${commons-logging.version}</version>
+		</dependency>
+		
+		<!-- 导入mysql连接包 -->
+        <dependency>  
+			<groupId>mysql</groupId>
+			<artifactId>mysql-connector-java</artifactId>
+			<version>${mysql-connector-java.version}</version>
+        </dependency>
+        
+        <!-- spring事物依赖包 -->
+        <dependency>
+		    <groupId>org.springframework</groupId>
+		    <artifactId>spring-tx</artifactId>
+		    <version>${org.springframework-version}</version>
+	    </dependency>
+	    
+        <dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-jdbc</artifactId>
+			<version>${org.springframework-version}</version>
+	    </dependency>
+	    
+	    <!-- AOP需要的包 -->
+        <dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-aop</artifactId>
+			<version>${org.springframework-version}</version>
+	    </dependency>
+        <dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-aspects</artifactId>
+			<version>${org.springframework-version}</version>
+	    </dependency>
+        <dependency>
+			<groupId>cglib</groupId>
+			<artifactId>cglib</artifactId>
+			<version>${cglib.version}</version>
+	    </dependency>
+	   
+	    <!-- Spring中使用redis所需jar包 -->
+        <dependency>
+			<groupId>org.springframework.data</groupId>
+			<artifactId>spring-data-redis</artifactId>
+			<version>${spring-data-redis.version}</version>
+	    </dependency>
+	    
+	    <!-- rabbitmq依赖包 -->
+		<dependency>
+		    <groupId>org.springframework.amqp</groupId>
+		    <artifactId>spring-rabbit</artifactId>
+		    <version>${spring-rabbit.version}</version>
+		</dependency>
+
+		<!-- logback日志文件配置 -->
+		<dependency>
+		    <groupId>ch.qos.logback</groupId>
+		    <artifactId>logback-classic</artifactId>
+		    <version>${logback-classic.version}</version>
+		    <exclusions>
+		    	<exclusion>
+		    		<groupId>com.sun.mail</groupId>
+		    		<artifactId>javax.mail</artifactId>
+		    	</exclusion>
+		    </exclusions>
+		</dependency>
   </dependencies>
   <build>
     <finalName>dubbo-springmvc-mybatis-reids-rabbitmq-zookeeper-nginx</finalName>

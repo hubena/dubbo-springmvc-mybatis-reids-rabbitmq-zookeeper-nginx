@@ -1,7 +1,47 @@
-<!DOCTYPE web-app PUBLIC
- "-//Sun Microsystems, Inc.//DTD Web Application 2.3//EN"
- "http://java.sun.com/dtd/web-app_2_3.dtd" >
-
-<web-app>
-  <display-name>Archetype Created Web Application</display-name>
+<?xml version="1.0" encoding="UTF-8"?>
+<web-app xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://xmlns.jcp.org/xml/ns/javaee"
+  xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-app_3_1.xsd" id="WebApp_ID" version="3.1">
+  <display-name>MavenTest2</display-name>
+  <!-- 配置项目版本参数 -->
+    <context-param>
+    	<param-name>version</param-name>
+    	<param-value>20180127</param-value>
+	</context-param>
+	
+	<!-- 配置Spring IoC加载配置文件路径 -->
+	<context-param>
+		<param-name>contextConfigLocation</param-name>
+		<param-value>classpath:spring.xml,classpath:spring-mybatis.xml</param-value>
+	</context-param>
+  
+  	<!-- Spring监听器  配置ContextLoaderListener用以初始化Spring IoC容器-->
+	<listener>
+		<listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
+	</listener>
+	
+	<servlet>
+		<servlet-name>springMVC</servlet-name>
+		<servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>
+		<init-param>
+			<param-name>contextConfigLocation</param-name>
+			<param-value>
+				classpath:spring-mvc.xml
+			</param-value>
+		</init-param>
+		<load-on-startup>1</load-on-startup>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>springMVC</servlet-name>
+		<!-- 匹配所有静态资源及不带后缀的非静态资源 -->
+		<url-pattern>/</url-pattern> 
+	</servlet-mapping>
+  
+   	<!-- 设置缓存时间30分钟 -->
+	<session-config>
+		<session-timeout>30</session-timeout>
+	</session-config>
+    
+	<welcome-file-list>
+		<welcome-file>/index.jsp</welcome-file>
+	</welcome-file-list>
 </web-app>
