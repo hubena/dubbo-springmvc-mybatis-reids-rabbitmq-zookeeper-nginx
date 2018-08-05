@@ -1,0 +1,299 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE generatorConfiguration
+  PUBLIC "-//mybatis.org//DTD MyBatis Generator Configuration 1.0//EN"
+  "http://mybatis.org/dtd/mybatis-generator-config_1_0.dtd">
+
+<generatorConfiguration>
+  <!-- 将location值添加到类加载路径中，一般为JDBC driver数据库连接驱动路径。
+  <classPathEntry>元素用于将类路径位置添加到MyBatis Generator（MBG）运行的类路径中。 <classPathEntry>元素是<generatorConfiguration>元素的选项子元素。 MBG在这些实例中从这些位置加载类：
+	加载JDBC驱动程序以进行数据库自省时
+	在JavaModelGenerator中加载根类以检查重写方法时
+	此元素是可选的，如果在MBG外部设置类路径（例如，使用java命令的-cp参数），则不需要此元素
+  -->
+  <!-- <classPathEntry location="F:\ProgramTools\apache-maven-3.3.9-bin\repository2\mysql\mysql-connector-java\5.1.45\mysql-connector-java-5.1.45.jar" /> -->
+
+  <!-- The <context> element is used to specify the environment for generating a set of objects. Child elements are used to specify the database to connect to, the type of objects to		     generate, and the tables to introspect. Multiple <context> elements can be listed inside an <generatorConfiguration> element to allow generating objects from different databases, or		  with different generation parameters, in the same run of MyBatis Generator (MBG). 
+	targetRuntime:
+	This is the default value 
+	With the value, MBG will generate objects that are compatible with MyBatis versions 3.0 and higher, and JSE 5.0 and higher (e.g. the Java model and mapper interfaces will use generic types). The "by example" methods in these generated objects support virtually unlimited dynamic where clauses. Additionally, the Java objects generated with these generators support many JSE 5.0 features including parameterized types and annotations.
+  -->
+  <!-- 
+	<context>元素用于指定生成一组对象的环境。 子元素用于指定要连接的数据库，要生成的对象类型以及要内省的表。 可以在<generatorConfiguration>元素内列出多个<context>元素，以允许在MyBatis	Generator（MBG）的同一运行中生成来自不同数据库或具有不同生成参数的对象。
+	targetRuntime:
+	这是默认值
+	使用该值，MBG将生成与MyBatis 3.0及更高版本以及JSE 5.0及更高版本兼容的对象（例如，Java模型和映射器接口将使用泛型类型）。 这些生成的对象中的“by example”方法支持几乎无限的动态where子句。 此外，使用这些生成器生成的Java对象支持许多JSE 5.0功能，包括参数化类型和注释。
+  -->
+
+  <context id="MYSQLTables" targetRuntime="MyBatis3">
+    
+    <!-- 生成的Java文件的编码 -->
+    <property name="javaFileEncoding" value="UTF-8"/>
+
+    <!-- 格式化java代码 -->
+    <property name="javaFormatter" value="org.mybatis.generator.api.dom.DefaultJavaFormatter"/>
+
+    <!-- 格式化XML代码 -->
+    <property name="xmlFormatter" value="org.mybatis.generator.api.dom.DefaultXmlFormatter"/>
+
+     <!--beginningDelimiter和endingDelimiter：指明数据库的用于标记数据库对象名的符号，比如ORACLE就是双引号，MYSQL默认是`反引号；-->
+    <property name="beginningDelimiter" value="'"/>
+    <property name="endingDelimiter" value="'"/>
+
+    <!-- 为了防止生成的代码中有很多注释，比较难看，加入下面的配置控制 -->
+    <commentGenerator>
+        <property name="suppressAllComments" value="true" />
+        <property name="suppressDate" value="true" />
+    </commentGenerator>
+	<!--
+		The <jdbcConnection> element is used to specify the properties of the database connection required to introspect tables. MyBatis Generator uses JDBC's DatabaseMetaData class to discover the properties of the tables you specify in the configuration. One <connectionFactory> or <jdbcConnection> element is required for each <context> element.
+
+		driverClass：	The fully qualified class name for the JDBC driver used to access the database.
+		connectionURL：	The JDBC connection URL used to access the database.
+		<jdbcConnection>元素用于指定内省表所需的数据库连接的属性。 MyBatis Generator使用JDBC的DatabaseMetaData类来发现您在配置中指定的表的属性。 每个<context>元素都需要一个<connectionFactory>或<jdbcConnection>元素。
+	-->
+    <!-- mysql中因为驱动版本与mysql版本不匹配，驱动版本过高，所以要设置serverTimezone=GMT&amp;nullCatalogMeansCurrent=true-->
+    <jdbcConnection driverClass="com.mysql.jdbc.Driver"
+        connectionURL="jdbc:mysql://localhost:3306/test1?useSSL=false&amp;serverTimezone=GMT&amp;nullCatalogMeansCurrent=true"
+        userId="root"
+        password="admin">
+    </jdbcConnection>
+	
+	<!-- The <javaTypeResolver> element is used to define properties of the Java Type Resolver. The Java Type Resolver is used to calculate Java types from database column information. The	    default Java Type Resolver attempts to make JDBC DECIMAL and NUMERIC types easier to use by substituting Integral types if possible (Long, Integer, Short, etc.) If this behavior is       undesirable, set the property "forceBigDecimals" to "true". You can also substitute your own implementation if you want different behavior than the default. This element is an            optional child element of the <context> element.
+        <javaTypeResolver>元素用于定义Java类型解析器的属性。 Java Type Resolver用于根据数据库列信息计算Java类型。 如果可能的话，默认的Java Type Resolver尝试通过替换Integral类型（Long，Integer，Short等）来尝试使JDBC DECIMAL和NUMERIC类型更容易使用。如果不希望出现这种情况，请将属性“forceBigDecimals”设置为“true”。 如果您想要与默认行为不同的行为，也可以替换自己的实现。 此元素是<context>元素的可选子元素。
+	-->
+    <javaTypeResolver >
+      <!--  This property is used to specify whether MyBatis Generator should force the use of java.math.BigDecimal for DECIMAL and NUMERIC fields, rather than substituting integral types when possible. The property supports these values: 
+      forceBigDecimals	:
+      This property is used to specify whether MyBatis Generator should force the use of java.math.BigDecimal for DECIMAL and NUMERIC fields, rather than substituting integral types when possible. The property supports these values:
+        false	This is the default value 
+        When the property is false or unspecified, the default Java type resolver will attempt to make JDBC DECIMAL and NUMERIC types easier to work with by substituting Integral types if possible. The substitution rules are as follows:
+        If the scale is greater then zero, or the length is greater than 18, then the java.math.BigDecimal type will be used
+        If the scale is zero, and the length is 10 through 18, then the Java type resolver will substitute a java.lang.Long.
+        If the scale is zero, and the length is 5 through 9, then the Java type resolver will substitute a java.lang.Integer.
+        If the scale is zero, and the length is less than 5, then the Java type resolver will substitute a java.lang.Short. 
+        true	When the property is true, the Java type resolver will always use java.math.BigDecimal if the database column is of type DECIMAL or NUMERIC.
+      此属性用于指定MyBatis Generator是否应强制对DECIMAL和NUMERIC字段使用java.math.BigDecimal，而不是在可能时替换整数类型。 该属性支持以下值：
+      forceBigDecimals:
+      此属性用于指定MyBatis Generator是否应强制对DECIMAL和NUMERIC字段使用java.math.BigDecimal，而不是在可能时替换整数类型。 该属性支持以下值：
+        false这是默认值:
+        当属性为false或未指定时，默认Java类型解析器将尝试通过替换Integral类型（如果可能）来使JDBC DECIMAL和NUMERIC类型更易于使用。 替代规则如下：
+        如果标度scale大于零，或者长度大于18，则将使用java.math.BigDecimal类型
+        如果标度scale为零，并且长度为10到18，那么Java类型解析器将替换java.lang.Long。
+        如果标度scale为零，并且长度为5到9，那么Java类型解析器将替换java.lang.Integer。
+        如果标度scale为零，并且长度小于5，那么Java类型解析器将替换java.lang.Short。
+        true 当属性为true时，如果数据库列的类型为DECIMAL或NUMERIC，则Java类型解析程序将始终使用java.math.BigDecimal。
+        扩展：标度scale：
+        BigDecimal 由任意精度的整数非标度值 和 32 位的整数标度 (scale) 组成。如果标度 (scale)为零或正数，则标度是BigDecimal小数点后的位数。如果标度 (scale)为负数，则将该数BigDecimal的非标度值乘以 10 的负 scale 次幂。因此，BigDecimal 表示的数值是 (unscaledValue × 10-scale)。
+        property name属性还可取值为：useJSR310Types，表示此属性用于指定MyBatis Generator是否应强制在DATE，TIME和TIMESTAMP字段中使用JSR-310数据类型，而不是使用java.util.Date。 如果为true，则类型将按如下方式解析：参看官网。
+      -->
+      <property name="forceBigDecimals" value="true" />
+    </javaTypeResolver>
+    
+    <!-- 
+        <javaModelGenerator>元素用于定义Java模型生成器的属性。 Java模型生成器构建与内省表匹配的主键类，记录类和Query by Example类。 此元素是<context>元素的必需子元素。 
+        属性描述:
+        targetPackage:这是将生成的类放在其中的包。 在默认生成器中，属性“enableSubPackages”控制实际包的计算方式。 如果为true，则计算的包将是targetPackage加上表的目录和模式的子包（如果存在）。 如果为false（默认值），则计算的包将完全是targetPackage属性中指定的包。 MyBatis Generator将根据生成的包创建文件夹。
+        targetProject:用于为生成的对象指定目标项目。 在Eclipse环境中运行时，它指定将保存对象的项目和源文件夹。 在其他环境中，此值应该是本地文件系统上的现有目录。 如果该目录不存在，MyBatis Generator将不会创建该目录。
+    -->
+    <javaModelGenerator targetPackage="com.hubena.entity" targetProject="src/main/java">
+    <!--
+        enableSubPackages:
+        This property is used to select whether MyBatis Generator will generate different Java packages for the objects based on the catalog and schema of the introspected table.
+        For example, suppose a table MYTABLE in schema MYSCHMA. Also suppose that the targetPackage attribute is set to "com.mycompany". If this property is true, the generated objects for the table will be placed in the package "com.mycompany.myschema". If the property is false, the generated objects will be placed in the "com.mycompany" schema.
+        The default value is false.
+        trimStrings:
+        This property is used to select whether MyBatis Generator adds code to trim the white space from character fields returned from the database. This can be useful if your database stores data in CHAR fields rather than VARCHAR fields. When true, MyBatis Generator will insert code to trim character fields. Can be overridden with the trimStrings property in a <table> or <columnOverride> element.
+        The default value is false.
+        enableSubPackages:
+        此属性用于选择MyBatis Generator是否将根据内省表的目录和架构为对象生成不同的Java包。
+        例如，假设模式MYSCHMA中的表为MYTABLE。 还假设targetPackage属性设置为“com.mycompany”。 如果此属性为true，则表的生成对象将放在包“com.mycompany.myschema”中。 如果属性为false，则生成的对象将放在“com.mycompany”架构中。
+        默认值为false。
+        trimStrings:
+        此属性用于选择MyBatis Generator是否添加代码以去除从数据库返回的字符字段中空白区域。 如果数据库将数据存储在CHAR字段而不是VARCHAR字段中，则此选项非常有用。 如果为true，MyBatis Generator将插入代码以修剪字符字段。 可以使用<table>或<columnOverride>元素中的trimStrings属性覆盖。
+        默认值为false。
+    -->
+      <property name="enableSubPackages" value="true" />
+      <property name="trimStrings" value="true" />
+    </javaModelGenerator>
+    
+    <!-- 
+    The <sqlMapGenerator> element is used to define properties of the SQL map generator. The SQL Map Generator builds a MyBatis/iBATIS formatted SQL map XML file for each introspected table.
+
+    If iBATIS2 is targeted, then this element is a required child element of the <context> element.
+
+    If MyBatis3 is targeted, then this element is a required child element of the <context> element only if your chosen javaClientGenerator requires XML.
+
+    If you do not specify a javaClientGenerator, then the following rules apply:
+
+    If you specify an sqlMapGenerator, then MBG will generate SQL map XML files and model classess only.
+    If you do not specify an sqlMapGenerator, then MBG will generate model classes only. 
+    <sqlMapGenerator>元素用于定义SQL映射生成器的属性。 SQL Map Generator为每个内省表构建一个MyBatis / iBATIS格式的SQL映射XML文件。
+
+    如果定位了iBATIS2，则此元素是<context>元素的必需子元素。
+
+    如果MyBatis3是目标，那么只有当您选择的javaClientGenerator需要XML时，此元素才是<context>元素的必需子元素。
+
+    如果未指定javaClientGenerator，则适用以下规则：
+
+    如果指定sqlMapGenerator，则MBG将仅生成SQL映射XML文件和模型classess。
+    如果未指定sqlMapGenerator，则MBG将仅生成模型类。
+    -->
+    <sqlMapGenerator targetPackage="com.hubena.dao.maybatis.mapper"  targetProject="src/main/java">
+      <property name="enableSubPackages" value="true" />
+    </sqlMapGenerator>
+
+    <!--  
+        The <javaClientGenerator> element is used to define properties of the Java client generator. The Java client Generator builds Java interfaces and classes that allow easy use of the generated Java model and XML map files. For iBATIS2 target environments, these generated objects take the form of DAO interface and implementation classes. For MyBatis, the generated objects take the form of mapper interfaces. This element is a optional child element of the <context> element. If you do not specify this element, then MyBatis Generator (MBG) will not generate Java client interfaces and classes.
+        type:
+        This attribute is used to select one of the predefined Java Client generators, or to specify a user provided Java Client generator. Any user provided DAO generator must extend the class org.mybatis.generator.codegen.AbstractJavaClientGenerator class, and must have a public default constructor.
+        The attribute accepts the following values for selecting one of the predefined generators:
+            XMLMAPPER: The generated objects will be Java interfaces for the MyBatis 3.x mapper infrastructure. The interfaces will be dependent on generated XML mapper files.
+            ANNOTATEDMAPPER: The generated objects will be Java interfaces for the MyBatis 3.x mapper infrastructure. The interfaces will be based on annotations and MyBatis 3.x                 SqlProviders. No     XML mapper files will be generated.
+                The ANNOTATEDMAPPER requires MyBatis version 3.0.4 or higher.
+        <javaClientGenerator>元素用于定义Java客户端生成器的属性。 Java客户端生成器构建Java接口和类，允许轻松使用生成的Java模型和XML映射文件。 对于iBATIS2目标环境，这些生成的对象采用DAO接口和实现类的形式。 对于MyBatis，生成的对象采用映射器接口的形式。 此元素是<context>元素的可选子元素。 如果未指定此元素，则MyBatis Generator（MBG）将不会生成Java客户端接口和类。
+        type:
+            此属性用于选择一个预定义的Java客户端生成器，或指定用户提供的Java客户端生成器。 任何用户提供的DAO生成器都必须扩展类org.mybatis.generator.codegen.AbstractJavaClientGenerator类，且必须具有公共默认构造函数。
+            该属性接受以下值以选择其中一个预定义的生成器：
+            XMLMAPPER: 生成的对象将是MyBatis 3.x映射器基础结构的Java接口。 接口将依赖于生成的XML映射器文件。
+            ANNOTATEDMAPPER: 
+                生成的对象将是MyBatis 3.x映射器基础结构的Java接口。 接口将基于注释和MyBatis 3.x SqlProviders。 不会生成XML映射器文件。
+                ANNOTATEDMAPPER需要MyBatis 3.0.4或更高版本。
+            其他属性请参看官方文档。
+    -->
+    <javaClientGenerator type="XMLMAPPER" targetPackage="com.hubena.dao.mybatis.interfaces"  targetProject="src/main/java">
+      <property name="enableSubPackages" value="true" />
+      <!-- 
+          This property can be used to specify a super interface for all generated interface objects. This value may be overridden by specifying the rootInterface property on a Table configuration.
+          Important: MBG does not verify that the interface exists, or is a valid Java interface.
+          If specified, the value of this property should be a fully qualified interface name (like com.mycompany.MyRootInterface).
+          此属性可用于为所有生成的接口对象指定超级接口。 可以通过在Table配置上指定rootInterface属性来覆盖此值。
+          要点：MBG不验证接口是否存在，或者是否是有效的Java接口。
+          如果指定，则此属性的值应为完全限定的接口名称（如com.mycompany.MyRootInterface）。
+      -->
+      <property name="rootInterface" value="" />
+    </javaClientGenerator>
+    <!-- 
+    The <table> element is used to select a table in the database for introspection. Selected tables will cause the following objects to be generated for each table:
+
+    A MyBatis/iBATIS formatted SQL Map file
+    A set of classes that form the "model" of the table including:
+    A class to match the primary key of the table (if the table has a primary key).
+    A class to match the fields in the table that are not in the primary key, and non BLOB fields. This class will extend the primary key if there is one.
+    A class to hold any BLOB fields in the table, if there are any. This class will extend one of the two previous classes depending on the configuration of the table.
+    A class that is used to generate dynamic where clauses in the different "by example" methods (selectByExample, deleteByExample).
+    (Optionally) A DAO interface and class
+    At least one <table> element must be specified as a required child element of the <context> element. You can specify unlimited table elements.
+    MyBatis Generator (MBG) tries to deal with the case sensitivity of database identifiers automatically. In most cases, MBG is able to find tables regardless of what you specify for catalog, schema, and tableName attributes. MBG's process follows these steps:
+
+    If either of the catalog, schema, or tableName attributes contain a space, then MBG will look for tables based on the exact case specified. In this case, MBG will automatically delimit the table identifiers in the generated SQL.
+    Else if the database reports that identifiers are stored in upper case, MBG will automatically convert any table identifier to upper case.
+    Else if the database reports that identifiers are stored in lower case, MBG will automatically convert any table identifier to lower case.
+    Else MBG will look for tables based on the exact case specified.
+    In most cases, this process works perfectly. However, there are cases where it will fail. For example, suppose you create a table like this:
+
+      create table "myTable" (
+         ...some columns
+      )
+    Because the table name is delimited, most databases will create the table with the exact case specified - even if the database normally stores identifiers in upper case. In this instance, you should specify the attribute delimitIdentifiers="true" in the table configuration.
+    <table>元素用于选择数据库中的表以进行内省。 选定的表将导致为每个表生成以下对象：
+
+    MyBatis / iBATIS格式的SQL Map文件
+    一组构成表格“模型”的类，包括：
+    用于匹配表的主键的类（如果表具有主键）。
+    用于匹配表中不在主键和非BLOB字段中的字段的类。 如果有主键，则此类将扩展主键。
+    用于保存表中任何BLOB字段的类（如果有）。 此类将根据表的配置扩展前两个类中的一个。
+    一个类，用于在不同的“by example”方法中生成动态where子句（selectByExample，deleteByExample）。
+    （可选）DAO接口和类
+    必须至少指定一个<table>元素作为<context>元素的必需子元素。 您可以指定无限制的表元素。
+    MyBatis Generator（MBG）尝试自动处理数据库标识符的区分大小写。在大多数情况下，无论您为catalog，schema和tableName属性指定了什么，MBG都能够查找表。 MBG的流程遵循以下步骤：
+
+    如果catalog，schema或tableName属性中的任何一个包含空格，则MBG将根据指定的确切大小写查找表。在这种情况下，MBG将自动分隔生成的SQL中的表标识符。
+    否则，如果数据库报告标识符以大写形式存储，则MBG将自动将任何表标识符转换为大写。
+    否则，如果数据库报告标识符以小写形式存储，则MBG将自动将任何表标识符转换为小写。
+    否则MBG将根据指定的具体情况查找表格。
+    在大多数情况下，这个过程非常有效。但是，有些情况会失败。例如，假设您创建一个这样的表：
+
+      创建表“myTable”（
+         ......一些专栏
+      ）
+    由于表名是分隔的，因此大多数数据库将创建具有指定的确切大小写的表 - 即使数据库通常以大写形式存储标识符。在这种情况下，您应该在表配置中指定属性delimitIdentifiers =“true”。
+    -->
+    <!-- 
+        tableName: The name of the database table (not including the schema or catalog). The specified value can contain SQL wildcards if so desired.
+        tableName: 数据库表的名称（不包括架构或目录）。 如果需要，指定的值可以包含SQL通配符。
+        schema: The database schema - not required if your database does not use schemas, or if there is a default schema. The specified value can contain SQL wildcards if so desired.
+        schema: 数据库模式 - 如果数据库不使用模式，或者存在缺省模式，则不需要。 如果需要，指定的值可以包含SQL通配符。
+        alias: If specified, this value will be used to alias the table and all column names in any generated SQL select statement. Column names will be aliased with the pattern alias_actualColumnName.
+        alias: 如果指定，则此值将用于对任何生成的SQL select语句中的表和所有列名称进行别名。 列名称将使用模式alias_actualColumnName别名。
+        domainObjectName: The base name from which generated object names will be generated. If not specified, MBG will generate a name automatically based on the tableName. The name (either specified here, or generated automatically) will be used to compute generated domain class names and DAO class names.
+        You can specify a package fragment in the domain object name. For example, if you specify foo.Bar then the domain object will be Bar and package foo will be appended to the target package specified in the generator configurations.
+        domainObjectName: 将从中生成生成的对象名称的基本名称。 如果未指定，MBG将根据tableName自动生成名称。 名称（在此处指定或自动生成）将用于计算生成的域类名称和DAO类名称。
+        您可以在域对象名称中指定包片段。 例如，如果指定foo.Bar，则域对象将为Bar，并且包foo将附加到生成器配置中指定的目标包。
+        mapperName: The name of the MyBatis3 generated mapper class and XML file. If not specified, the name will be whatever the domain object name is, plus the word "Mapper".
+        You can specify a package fragment in the mapper name. For example, if you specify foo.BarMapper then the mapper will be BarMapper and package foo will be appended to the target mapperName: package specified in the generator configurations.
+        MyBatis3生成的映射器类和XML文件的名称。 如果未指定，则名称将是域对象名称，加上单词“Mapper”。
+        您可以在映射器名称中指定包片段。 例如，如果指定foo.BarMapper，则映射器将为BarMapper，并且包foo将附加到生成器配置中指定的目标包。
+    -->
+    <table schema="test1" tableName="order" domainObjectName="Order" enableCountByExample="false" 
+    	enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="false" 
+    	selectByExampleQueryId="false" modelType="flat">
+      <!-- 
+          useActualColumnNames: If true, then MBG will use column names as returned from the database metadata as the properties of the generated domain objects. If false (default), MBG will attempt to camel case the returned names. In either event, the name can be specified explicitly by the <columnOverride> element in which case this property will be ignored for the specified column.
+          For example, suppose a table contains a column START_DATE. If the value of this property is "true", then MBG will generate the property name as START_DATE - meaning that the getters and setters for the value will be getSTART_DATE() and setSTART_DATE(). If the value of this property is false, then MBG will generate the property name as startDate - meaning that the getters and setters for the value will be getStartDate() and setStartDate().
+          The default value is false.
+          如果为true，则MBG将使用从数据库元数据返回的列名作为生成的域对象的属性。 如果为false（默认值），MBG将尝试驼峰返回的名称。 在任何一种情况下，都可以通过<columnOverride>元素显式指定名称，在这种情况下，将忽略指定列的属性。
+          例如，假设一个表包含START_DATE列。 如果此属性的值为“true”，则MBG将生成属性名称为START_DATE - 意味着该值的getter和setter将为getSTART_DATE（）和setSTART_DATE（）。 如果此属性的值为false，则MBG将生成属性名称为startDate - 这意味着该值的getter和setter将为getStartDate（）和setStartDate（）。
+          默认值为false。
+      -->
+      <property name="useActualColumnNames" value="true"/>
+      <!-- 
+          The <generatedKey> element is used to specify properties for auto generated keys (from identity field or sequences). If you specify this element, MyBatis Generator (MBG) will generate an appropriate <selectKey> element inside the generated <insert> element in the SQL map. This element is an optional child element of the <table> element. 
+          <generatedKey>元素用于指定自动生成的键的属性（来自标识字段或序列）。 如果指定此元素，MyBatis Generator（MBG）将在SQL映射中生成的<insert>元素内生成相应的<selectKey>元素。 此元素是<table>元素的可选子元素。
+          column: The column name of the generated column.
+          column: 生成列的列名。
+          sqlStatement: The SQL statement that will return the new value. If this is an identity column, then you can use one of the predefined special values, or substitute the proper          statement for your database. The predefined special values are as follows:
+              MySql: This will translate to: SELECT LAST_INSERT_ID();
+              DB2: This will translate to: VALUES IDENTITY_VAL_LOCAL();
+          sqlStatement: 将返回新值的SQL语句。 如果这是一个标识列，则可以使用其中一个预定义的特殊值，或者用适当的语句替换数据库。 预定义的特殊值如下：
+              MySql: 这将转换为：SELECT LAST_INSERT_ID();
+              DB2: 这将转换为：VALUES IDENTITY_VAL_LOCAL（）
+          identity: If true, then the column is flagged as an identity column and the generated <selectKey> element will be placed after the insert (for an identity column). If false, then      the generated <selectKey> will be placed before the insert (typically for a sequence).
+              Important: Even if you specify the type attribute as "post", you should still specify this value as "true" for identity columns. This will flag MBG to remove the column from the insert list.
+           identity: 如果为true，则该列标记为标识列，生成的<selectKey>元素将放置在插入之后（对于标识列）。 如果为false，则生成的<selectKey>将放置在插入之前（通常用于序列）。
+           重要说明：即使您将type属性指定为“post”，仍应将此值指定为标识列的“true”。 这将标记MBG以从插入列表中删除列。
+           默认值为false。
+
+
+The default is false.
+      -->
+      <generatedKey column="id" sqlStatement="MySql" identity="true" />
+      <!-- 
+      column: The column name of the introspected.
+      column: 内省的列名。
+      property: The name of a Java property to be used. If not specified, MBG will generate properties based on the column name. For example, if a table has a column named "STRT_DTE" then         MBG will generate the property name as either "STRT_DTE" or "strtDte" based on the value of the "useActualColumnNames" property (see the description of the <table> element for         more information). This property could be used to rename the column "startDate"
+      property：要使用的Java属性的名称。 如果未指定，MBG将根据列名生成属性。 例如，如果表具有名为“STRT_DTE”的列，则MBG将根据“useActualColumnNames”属性的值生成属性名称“STRT_DTE”或“strtDte”（       请参阅<table>元素的说明 更多信息）。 此属性可用于重命名列“startDate”
+      javaType	：The fully qualified Java Type of the property for this column. This can be used to override the type calculated by the JavaTypeResolver if required. For some databases,          this is necessary to handle "odd" database types (e.g. MySql's unsigned bigint type should be mapped to java.lang.Object).
+      jdbcType	：The JDBC Type (INTEGER, DECIMAL, NUMERIC, VARCHAR, etc.) for the column. This can be used to override the type calculated by the JavaTypeResolver if required. For some           databases this is necessary to handle JDBC driver quirks (e.g. DB2's LONGVARCHAR type should be mapped to VARCHAR for iBATIS).
+      javaType：此列的属性的完全限定Java类型。 如果需要，这可以用于覆盖JavaTypeResolver计算的类型。 对于某些数据库，这是处理“奇数”数据库类型所必需的（例如，MySql的unsigned bigint类型应该映射      到java.lang.Object）。
+      jdbcType：列的JDBC类型（INTEGER，DECIMAL，NUMERIC，VARCHAR等）。 如果需要，这可以用于覆盖JavaTypeResolver计算的类型。 对于某些数据库，这是处理JDBC驱动程序怪癖所必需的（例如，DB2的           LONGVARCHAR类型应映射到VARBAAR以用于iBATIS）。
+      typeHandler: A user defined type handler that should be used for this column. This should be the fully qualified name of a class that implements iBATIS' TypeHandler or                       TypeHandlerCallback interface (TypeHandlerCallback is simpler to implement). If unspecified, or blank, then iBATIS will use the default type facility for handling types.               Important: MBG does not verify that this type handler exists, or is valid. MBG simply inserts this value at the appropriate places in the generated SQL Map configuration file.
+      typeHandler：应该用于此列的用户定义的类型处理程序。 这应该是实现iBATIS的TypeHandler或TypeHandlerCallback接口的类的完全限定名称（TypeHandlerCallback更易于实现）。 如果未指定或为空，则        iBATIS将使用默认类型工具来处理类型。 重要说明：MBG不验证此类型处理程序是否存在或是否有效。 MBG只是将此值插入生成的SQL Map配置文件中的适当位置。
+      isGeneratedAlways: Specifies whether the column is a GENERATED ALWAYS column in the database. If the column is GENERATED ALWAYS then MBG will not reference the column in insert or           update statements.
+            The default value is false.
+      isGeneratedAlways：指定列是否为数据库中的GENERATED ALWAYS列。 如果列是GENERATED ALWAYS，那么MBG将不会在insert或update语句中引用该列。
+            默认值为false。
+      -->
+      <!-- <columnOverride column="customer" property="customerOverride" jdbcType="VARCHAR"/> -->
+      <!--
+      The <ignoreColumn> element is used to tell MyBatis Generator (MBG) to ignore a column in an introspected table. No generated SQL will refer to the column, and no property will be generated for the column in the model objects. This element is an optional child element of the <table> element.
+      <ignoreColumn>元素用于告诉MyBatis Generator（MBG）忽略内省表中的列。 没有生成的SQL将引用该列，并且不会为模型对象中的列生成任何属性。 此元素是<table>元素的可选子元素。
+      column: The column name of the ignored column.
+      column: 被忽略列的列名。
+      delimitedColumnName: If true then MBG will perform a case-sensitive exact match when matching against returned columns from the database. If false (default) then the name is considered      case-insensitive.
+      delimitedColumnName：如果为true，则MBG将在匹配数据库中返回的列时执行区分大小写的完全匹配。 如果为false（默认值），则该名称将被视为不区分大小写。
+      -->
+      <!-- <ignoreColumn column="orderPrice" /> -->
+    </table>
+
+  </context>
+</generatorConfiguration>

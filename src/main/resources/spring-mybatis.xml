@@ -25,15 +25,15 @@
 	<bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
 		<property name="dataSource" ref="dataSource" />
 		<!-- 自动扫描entity目录, 省掉Configuration.xml里的手工配置 -->
-		<property name="typeAliasesPackage" value="com.zengxiebo.pojo" />
+		<property name="typeAliasesPackage" value="com.hubena.entity" />
 		<!-- 显式指定Mapper文件位置 -->
-		<property name="mapperLocations" value="classpath:/com/zengxiebo/dao/mybatis/mapper/*Mapper.xml" />
+		<property name="mapperLocations" value="classpath:/com/hubena/dao/maybatis/mapper/*Mapper.xml" />
 	</bean>
 
 	<!-- 配置扫描器 -->
 	<bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">
 		<!-- ,用自动扫描方式创建mapper bean,扫描这个包以及它的子包下的所有映射接口类 -->
-		<property name="basePackage" value="com.zengxiebo.dao.mybatis.interfaces" />
+		<property name="basePackage" value="com.hubena.dao.mybatis.interfaces" />
 		<property name="sqlSessionFactoryBeanName" value="sqlSessionFactory" />
 		<property name="annotationClass" value="org.springframework.stereotype.Repository"/>
 	</bean>

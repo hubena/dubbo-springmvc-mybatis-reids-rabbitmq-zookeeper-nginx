@@ -1,13 +1,14 @@
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-  xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
-  <modelVersion>4.0.0</modelVersion>
-  <groupId>hubena</groupId>
-  <artifactId>dubbo-springmvc-mybatis-reids-rabbitmq-zookeeper-nginx</artifactId>
-  <packaging>war</packaging>
-  <version>0.0.1-SNAPSHOT</version>
-  <name>dubbo-springmvc-mybatis-reids-rabbitmq-zookeeper-nginx Maven Webapp</name>
-  <url>http://maven.apache.org</url>
-  <properties>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+	<groupId>hubena</groupId>
+	<artifactId>dubbo-springmvc-mybatis-reids-rabbitmq-zookeeper-nginx</artifactId>
+	<packaging>war</packaging>
+	<version>0.0.1-SNAPSHOT</version>
+	<name>dubbo-springmvc-mybatis-reids-rabbitmq-zookeeper-nginx Maven Webapp</name>
+	<url>http://maven.apache.org</url>
+	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<org.springframework-version>5.0.3.RELEASE</org.springframework-version>
 		<mybatis.version>3.4.5</mybatis.version>
@@ -25,10 +26,10 @@
 		<spring-rabbit.version>2.0.2.RELEASE</spring-rabbit.version>
 		<logback-classic.version>1.2.3</logback-classic.version>
 		<java.home>F:\ProgramTools\Java\jdk1.8.0_121\bin</java.home>
-  </properties>
-  <dependencies>
-  		<!-- junit测试包 -->
-  		<dependency>
+	</properties>
+	<dependencies>
+		<!-- junit测试包 -->
+		<dependency>
 			<groupId>junit</groupId>
 			<artifactId>junit</artifactId>
 			<version>${junit.version}</version>
@@ -36,10 +37,10 @@
 		</dependency>
 		<!-- spring测试包 -->
 		<dependency>
-		    <groupId>org.springframework</groupId>
-		    <artifactId>spring-test</artifactId>
-		    <version>${org.springframework-version}</version>
-		    <scope>test</scope>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-test</artifactId>
+			<version>${org.springframework-version}</version>
+			<scope>test</scope>
 		</dependency>
 		<!-- servlet-api,范围为provided -->
 		<dependency>
@@ -48,7 +49,7 @@
 			<version>${servlet-api.version}</version>
 			<scope>provided</scope>
 		</dependency>
-		
+
 		<!-- 因为context容器依赖其他几个包，所以只要配置这一个就可以了 -->
 		<dependency>
 			<groupId>org.springframework</groupId>
@@ -57,11 +58,11 @@
 		</dependency>
 		<!-- springmvc包，它会依赖导入Spring-web包，所以不需要再导入了 -->
 		<dependency>
-		    <groupId>org.springframework</groupId>
-		    <artifactId>spring-webmvc</artifactId>
-		    <version>${org.springframework-version}</version>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-webmvc</artifactId>
+			<version>${org.springframework-version}</version>
 		</dependency>
-		
+
 		<!-- 使用jstl标签需要导入的两个包 -->
 
 		<dependency>
@@ -69,117 +70,180 @@
 			<artifactId>jstl</artifactId>
 			<version>1.2</version>
 		</dependency>
-		<dependency>  
+		<dependency>
 			<groupId>org.glassfish.web</groupId>
 			<artifactId>jstl-impl</artifactId>
 			<version>1.2</version>
 			<exclusions>
-			<!--  			
-				<exclusion>
-                    <groupId>javax.servlet</groupId>
-                    <artifactId>servlet-api</artifactId>
-                </exclusion> 
-            -->
-			<!--            
-				<exclusion>
-                    <groupId>javax.servlet.jsp</groupId>
-					<artifactId>jsp-api</artifactId>
-                </exclusion> 
-            -->
-            </exclusions>
+				<!-- <exclusion> <groupId>javax.servlet</groupId> <artifactId>servlet-api</artifactId> 
+					</exclusion> -->
+				<!-- <exclusion> <groupId>javax.servlet.jsp</groupId> <artifactId>jsp-api</artifactId> 
+					</exclusion> -->
+			</exclusions>
 		</dependency>
-		
-		<!-- mybatis依赖包-->  
-        <dependency>  
-            <groupId>org.mybatis</groupId>  
-            <artifactId>mybatis</artifactId>  
-            <version>${mybatis.version}</version>  
-        </dependency>
-        <dependency>  
-            <groupId>org.mybatis</groupId>  
-            <artifactId>mybatis-spring</artifactId>  
-            <version>${mybatis.spring.version}</version>
-        </dependency>
-        
-        <!-- 导入数据源包 -->
-        <dependency>  
+
+		<!-- mybatis依赖包 -->
+		<dependency>
+			<groupId>org.mybatis</groupId>
+			<artifactId>mybatis</artifactId>
+			<version>${mybatis.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>org.mybatis</groupId>
+			<artifactId>mybatis-spring</artifactId>
+			<version>${mybatis.spring.version}</version>
+		</dependency>
+
+		<!-- 导入数据源包 -->
+		<dependency>
 			<groupId>commons-dbcp</groupId>
 			<artifactId>commons-dbcp</artifactId>
 			<version>${commons-dbcp.vesion}</version>
-        </dependency>
-        
-        <!-- Jakarta  Commons-logging(JCL)日志门面依赖 -->
-        <dependency>
+		</dependency>
+
+		<!-- Jakarta Commons-logging(JCL)日志门面依赖 -->
+		<dependency>
 			<groupId>commons-logging</groupId>
 			<artifactId>commons-logging</artifactId>
 			<version>${commons-logging.version}</version>
 		</dependency>
-		
+
 		<!-- 导入mysql连接包 -->
-        <dependency>  
+		<dependency>
 			<groupId>mysql</groupId>
 			<artifactId>mysql-connector-java</artifactId>
 			<version>${mysql-connector-java.version}</version>
-        </dependency>
-        
-        <!-- spring事物依赖包 -->
-        <dependency>
-		    <groupId>org.springframework</groupId>
-		    <artifactId>spring-tx</artifactId>
-		    <version>${org.springframework-version}</version>
-	    </dependency>
-	    
-        <dependency>
+		</dependency>
+
+		<!-- spring事物依赖包 -->
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-tx</artifactId>
+			<version>${org.springframework-version}</version>
+		</dependency>
+
+		<dependency>
 			<groupId>org.springframework</groupId>
 			<artifactId>spring-jdbc</artifactId>
 			<version>${org.springframework-version}</version>
-	    </dependency>
-	    
-	    <!-- AOP需要的包 -->
-        <dependency>
+		</dependency>
+
+		<!-- AOP需要的包 -->
+		<dependency>
 			<groupId>org.springframework</groupId>
 			<artifactId>spring-aop</artifactId>
 			<version>${org.springframework-version}</version>
-	    </dependency>
-        <dependency>
+		</dependency>
+		<dependency>
 			<groupId>org.springframework</groupId>
 			<artifactId>spring-aspects</artifactId>
 			<version>${org.springframework-version}</version>
-	    </dependency>
-        <dependency>
+		</dependency>
+		<dependency>
 			<groupId>cglib</groupId>
 			<artifactId>cglib</artifactId>
 			<version>${cglib.version}</version>
-	    </dependency>
-	   
-	    <!-- Spring中使用redis所需jar包 -->
-        <dependency>
+		</dependency>
+
+		<!-- Spring中使用redis所需jar包 -->
+		<dependency>
 			<groupId>org.springframework.data</groupId>
 			<artifactId>spring-data-redis</artifactId>
 			<version>${spring-data-redis.version}</version>
-	    </dependency>
-	    
-	    <!-- rabbitmq依赖包 -->
+		</dependency>
+
+		<!-- rabbitmq依赖包 -->
 		<dependency>
-		    <groupId>org.springframework.amqp</groupId>
-		    <artifactId>spring-rabbit</artifactId>
-		    <version>${spring-rabbit.version}</version>
+			<groupId>org.springframework.amqp</groupId>
+			<artifactId>spring-rabbit</artifactId>
+			<version>${spring-rabbit.version}</version>
 		</dependency>
 
 		<!-- logback日志文件配置 -->
 		<dependency>
-		    <groupId>ch.qos.logback</groupId>
-		    <artifactId>logback-classic</artifactId>
-		    <version>${logback-classic.version}</version>
-		    <exclusions>
-		    	<exclusion>
-		    		<groupId>com.sun.mail</groupId>
-		    		<artifactId>javax.mail</artifactId>
-		    	</exclusion>
-		    </exclusions>
+			<groupId>ch.qos.logback</groupId>
+			<artifactId>logback-classic</artifactId>
+			<version>${logback-classic.version}</version>
+			<exclusions>
+				<exclusion>
+					<groupId>com.sun.mail</groupId>
+					<artifactId>javax.mail</artifactId>
+				</exclusion>
+			</exclusions>
 		</dependency>
-  </dependencies>
-  <build>
-    <finalName>dubbo-springmvc-mybatis-reids-rabbitmq-zookeeper-nginx</finalName>
-  </build>
+	</dependencies>
+	<build>
+		<finalName>dubbo-springmvc-mybatis-reids-rabbitmq-zookeeper-nginx</finalName>
+		<plugins>
+			<!-- 配置此项目默认的编译版本和目标版本 -->
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-compiler-plugin</artifactId>
+				<version>2.5.1</version>
+				<configuration>
+					<source>${java-version}</source>
+					<target>${java-version}</target>
+					<encoding>UTF-8</encoding>
+				</configuration>
+			</plugin>
+			<!-- 配置配合maven热发布到tomcat服务器的插件 -->
+			<plugin>
+				<groupId>org.apache.tomcat.maven</groupId>
+				<artifactId>tomcat7-maven-plugin</artifactId>
+				<version>2.2</version>
+				<configuration>
+					<url>http://127.0.0.1:8080/manager/text</url>
+					<server>tomcatServer</server> <!-- 配置要发布的服务器账号密码，与maven的setting文件中的server相同 -->
+					<path>/MavenTest2</path> <!-- 发布项目路径 -->
+				</configuration>
+			</plugin>
+
+			<!-- MyBatis Generator插件：根据数据库表结构，自动生成MyBatis所需的实体类、Dao层接口和映射XML文件 配置官网：http://www.mybatis.org/generator/running/runningWithMaven.html -->
+			<plugin>
+				<groupId>org.mybatis.generator</groupId>
+				<artifactId>mybatis-generator-maven-plugin</artifactId>
+				<version>${mybatis-generator.version}</version>
+				<!-- 最初，插件类路径非常有限 - 它只包含MyBatis生成器本身。 如果你需要在插件的类路径中添加一些东西（例如，JDBC驱动程序）， 
+					你可以通过向插件配置中添加依赖项来实现，若配置了以下内容，则 在generatorConfig.xml文件中不用配置<classPathEntry/>属性了如下所示： -->
+				<dependencies>
+					<!--添加MySql-connector依赖 -->
+					<dependency>
+						<groupId>mysql</groupId>
+						<artifactId>mysql-connector-java</artifactId>
+						<version>${mysql-connector-java.version}</version>
+					</dependency>
+				</dependencies>
+				<configuration>
+					<!--MyBaits-generator的配置文件generatorConfig.xml的位置 -->
+					<configurationFile>src/main/resources/generator/generatorConfig.xml</configurationFile>
+					<!--是否覆盖同名文件（只是针对XML文件,java文件生成类似*.java.1、*.java.2形式的文件） -->
+					<overwrite>true</overwrite>
+					<!--如果为true，则MBG将进度消息写入构建日志。 -->
+					<verbose>true</verbose>
+				</configuration>
+				<!-- execution:MBG插件绑定到Maven构建的generate-sources阶段，因此它将在编译步骤之前执行。 另请注意，MBG生成Java源文件和XML资源。 
+					MBG目标将生成的Java文件和XML资源绑定到构建， 它们都将包含在构建生成的任何JAR中。 -->
+				<!-- <executions> <execution> <id>mybatis-generator</id> <goals> <goal>generate</goal> 
+					</goals> </execution> </executions> -->
+			</plugin>
+		</plugins>
+
+		<!-- 为了将src/main/java文件中的.xml文件打入war包 -->
+		<resources>
+			<resource>
+				<directory>src/main/java</directory>
+				<includes>
+					<include>**/*Mapper.xml</include>
+				</includes>
+				<filtering>true</filtering>
+			</resource>
+			<resource>
+				<directory>src/main/resources</directory>
+				<includes>
+					<include>**/*.*</include>
+				</includes>
+				<filtering>true</filtering>
+			</resource>
+		</resources>
+	</build>
 </project>

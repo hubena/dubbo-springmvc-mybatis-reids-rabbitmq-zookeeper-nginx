@@ -11,11 +11,11 @@
 			http://www.springframework.org/schema/context/spring-context-4.3.xsd">
 			
 	<!-- 	扫描com.threeweidu-->
-	<context:component-scan base-package="com.zengxiebo" use-default-filters="false">
+	<context:component-scan base-package="com.hubena" use-default-filters="false">
 		<context:include-filter type="annotation" expression="org.springframework.stereotype.Service" />
 		<context:include-filter type="annotation" expression="org.springframework.stereotype.Repository" />
 	</context:component-scan>
 	
 	<!-- <import resource="classpath*:./spring-sentinel.xml" /> -->
-	<bean id="springRabbitMQConfig" class="com.zengxiebo.rabbitmq.configuration.SpringRabbitMQConfig" />
+	<!-- <bean id="springRabbitMQConfig" class="com.zengxiebo.rabbitmq.configuration.SpringRabbitMQConfig" /> -->
 </beans>

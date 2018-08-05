@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.hubena.dao.mybatis.interfaces.OrderMapper">
+	<select id="getOrder" parameterType="java.lang.Integer"
+		resultType="com.hubena.entity.Order">
+		select id, orderYear, orderPrice, customer from test1.order
+		where id=#{id}
+	</select>
+</mapper>

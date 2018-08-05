@@ -20,7 +20,7 @@
     <mvc:annotation-driven/>  
 	<!-- 自动扫描controller包下的所有类，如果@Controller注入为bean -->
 	<!-- 配置了component-scan就不需要context:annotation-config了 -->
-	<context:component-scan base-package="com.zengxiebo" use-default-filters="false">
+	<context:component-scan base-package="com.hubena" use-default-filters="false">
 		<!-- Use-dafault-filters=”false”的情况下：
 			 <context:exclude-filter>指定的不扫描，
 			 <context:include-filter>指定的扫描 
