@@ -171,6 +171,12 @@
 				</exclusion>
 			</exclusions>
 		</dependency>
+		<!-- ZookeeperClient -->
+		<dependency>
+		    <groupId>org.apache.zookeeper</groupId>
+		    <artifactId>zookeeper</artifactId>
+		    <version>3.5.4-beta</version>
+		</dependency>
 	</dependencies>
 	<build>
 		<finalName>dubbo-springmvc-mybatis-reids-rabbitmq-zookeeper-nginx</finalName>
