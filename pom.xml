@@ -25,6 +25,9 @@
 		<spring-data-redis.version>2.0.3.RELEASE</spring-data-redis.version>
 		<redis.clients.version>2.9.0</redis.clients.version>
 		<spring-rabbit.version>2.0.2.RELEASE</spring-rabbit.version>
+		<zookeeper.version>3.4.13</zookeeper.version>
+		<curator-recipes.version>4.0.1</curator-recipes.version>
+		<kryo.version>4.0.2</kryo.version>
 		<logback-classic.version>1.2.3</logback-classic.version>
 		<java.home>F:\ProgramTools\Java\jdk1.8.0_121\bin</java.home>
 	</properties>
@@ -184,7 +187,7 @@
 		<dependency>
 		    <groupId>org.apache.zookeeper</groupId>
 		    <artifactId>zookeeper</artifactId>
-		    <version>3.5.4-beta</version>
+		    <version>${zookeeper.version}</version>
 		    <exclusions>
 		    	<exclusion>
 		    	 	<groupId>org.slf4j</groupId>
@@ -198,19 +201,19 @@
 		<dependency>
 		    <groupId>org.apache.curator</groupId>
 		    <artifactId>curator-recipes</artifactId>
-		    <version>4.0.1</version>
+		    <version>${curator-recipes.version}</version>
 		</dependency>
 		<!-- kryo的依赖包 -->
 		<dependency>
 		    <groupId>com.esotericsoftware</groupId>
 		    <artifactId>kryo</artifactId>
-		    <version>4.0.2</version>
+		    <version>${kryo.version}</version>
 		</dependency>
 		<!-- 如果您因为在类路径中使用了不同版本的 asm 而遇到问题，可以使用包含这个 asm 版本的 kryo-shaded jar，并将其重新放置在不同的包中： -->
 		<dependency>
 		    <groupId>com.esotericsoftware</groupId>
 		    <artifactId>kryo-shaded</artifactId>
-		    <version>4.0.2</version>
+		    <version>${kryo.version}</version>
 		</dependency>
 		
 	</dependencies>
