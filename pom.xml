@@ -29,6 +29,7 @@
 		<curator-recipes.version>4.0.1</curator-recipes.version>
 		<kryo.version>4.0.2</kryo.version>
 		<logback-classic.version>1.2.3</logback-classic.version>
+		<redisson.version>3.8.1</redisson.version>
 		<java.home>F:\ProgramTools\Java\jdk1.8.0_121\bin</java.home>
 	</properties>
 	<dependencies>
@@ -215,7 +216,20 @@
 		    <artifactId>kryo-shaded</artifactId>
 		    <version>${kryo.version}</version>
 		</dependency>
+		<!-- redisson分布式锁 -->
+		<dependency>
+		    <groupId>org.redisson</groupId>
+		    <artifactId>redisson</artifactId>
+		    <version>${redisson.version}</version>
+		</dependency>
 		
+		
+		<!-- 导入老赵代码包 -->
+		<dependency>  
+		    <groupId>janty</groupId>  
+		    <artifactId>janty-cached</artifactId>  
+		    <version>2.0.0</version>  
+		</dependency>  
 	</dependencies>
 	<build>
 		<finalName>dubbo-springmvc-mybatis-reids-rabbitmq-zookeeper-nginx</finalName>

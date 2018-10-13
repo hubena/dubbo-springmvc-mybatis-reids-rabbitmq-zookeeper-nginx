@@ -16,8 +16,12 @@
 	<!-- 启动AspectJ框架自动代理，此时才会生成动态代理对象 -->
 	<aop:aspectj-autoproxy />
 	
-    <!-- 注解驱动 -->
+    <!-- 注解驱动  会自动注册DefaultAnnotationHandlerMapping与AnnotationMethodHandlerAdapter 两个bean,
+    	是spring MVC为@Controllers分发请求所必须的。 -->
     <mvc:annotation-driven/>  
+    <!-- 开启默认处理 -->
+	<!-- 这样静态资源就可以访问了 -->
+	<mvc:default-servlet-handler />
 	<!-- 自动扫描controller包下的所有类，如果@Controller注入为bean -->
 	<!-- 配置了component-scan就不需要context:annotation-config了 -->
 	<context:component-scan base-package="com.hubena" use-default-filters="false">
