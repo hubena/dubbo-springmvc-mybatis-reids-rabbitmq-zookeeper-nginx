@@ -7,4 +7,6 @@ import com.hubena.entity.Order;
 public interface OrderMapper {
 	
 	Order getOrder(Integer id);
+	
+	int updateOrderYear(Order order);
 }

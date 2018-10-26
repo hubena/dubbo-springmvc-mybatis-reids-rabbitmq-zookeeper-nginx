@@ -1,7 +1,11 @@
 package com.hubena.entity;
 
-public class Order {
-    private Integer id;
+import java.io.Serializable;
+
+public class Order implements Serializable {
+	private static final long serialVersionUID = 1L;
+
+	private Integer id;
 
     private Integer orderYear;
 
@@ -40,4 +44,10 @@ public class Order {
     public void setCustomer(String customer) {
         this.customer = customer == null ? null : customer.trim();
     }
+
+	@Override
+	public String toString() {
+		return "Order [id=" + id + ", orderYear=" + orderYear + ", orderPrice=" + orderPrice + ", customer=" + customer
+				+ "]";
+	}
 }

@@ -6,4 +6,16 @@
 		select id, orderYear, orderPrice, customer from test1.order
 		where id=#{id}
 	</select>
+	
+	<update id="updateOrderYear" parameterType="com.hubena.entity.Order">
+        update test1.order
+        <set>
+            <if test="orderYear">
+                orderYear=#{orderYear},
+            </if>
+        </set>
+        <where>
+            id=#{id}
+        </where>
+	</update>
 </mapper>

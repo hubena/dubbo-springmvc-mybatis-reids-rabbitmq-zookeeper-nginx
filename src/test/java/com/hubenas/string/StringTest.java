@@ -24,5 +24,7 @@ public class StringTest {
 		String gString = new String("java"); // new方法永远都新建对象
 		logger.debug("eString == gString:{}", eString == gString); // false
 		
+		logger.debug("长度：{}", "4d5c01842f37d90651f9693783c6564279fed6f4".length());
+		
 	}
 }

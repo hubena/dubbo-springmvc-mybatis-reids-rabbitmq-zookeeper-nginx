@@ -25,13 +25,19 @@
         </encoder>
     </appender>
  
-    <root level="info">
+    <root level="DEBUG">
         <appender-ref ref="console" />
         <appender-ref ref="file" />
     </root>
  
     <!-- logback为java中的包 -->
     <logger name="com.hubena" level="DEBUG" additivity="false">
+        <appender-ref ref="console"/>
+    </logger>
+    <logger name="org" level="DEBUG" additivity="false">
+        <appender-ref ref="console"/>
+    </logger>
+    <logger name="com" level="DEBUG" additivity="false">
         <appender-ref ref="console"/>
     </logger>
 </configuration>
